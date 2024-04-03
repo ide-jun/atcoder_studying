@@ -1,7 +1,7 @@
 name: Daily Programming
 on:
   schedule:
-    - cron: 20 4 * * *
+    - cron: 00 5 * * *
 
 jobs:
   create_issue:
@@ -13,7 +13,7 @@ jobs:
       - name: Fetch a Problem
         run: |
           today=$(TZ='Asia/Tokyo' date +%Y-%m-%d)
-          issue_body=$(bash ./../../daily_atcoder_challenge.sh)
+          issue_body=$(bash ./daily_atcoder_challenge.sh)
           gh issue create \
             --title "Daily Atcoder Challenge ($today)" \
             --assignee "$ASSIGNEES" \
