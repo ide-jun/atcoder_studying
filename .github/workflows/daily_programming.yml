@@ -1,7 +1,7 @@
 name: Daily Programming
 on:
   schedule:
-    - cron: 10 8 * * *
+    - cron: 35 8 * * *
 
 jobs:
   create_issue:
@@ -10,12 +10,15 @@ jobs:
     permissions:
       issues: write
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
       - name: Fetch a Problem
         run: |
           today=$(TZ='Asia/Tokyo' date +%Y-%m-%d)
           echo $(pwd)
           ls
-          issue_body=$(bash ./../../daily_atcoder_challenge.sh)
+          issue_body=$(bash ./daily_atcoder_challenge.sh)
           gh issue create \
             --title "Daily Atcoder Challenge ($today)" \
             --assignee "$ASSIGNEES" \
