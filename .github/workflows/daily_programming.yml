@@ -1,7 +1,7 @@
 name: Daily Programming
 on:
   schedule:
-    - cron: 0 3 * * *
+    - cron: 30 3 * * *
 
 jobs:
   create_issue:
@@ -12,32 +12,15 @@ jobs:
     steps:
       - name: Fetch a Problem
         run: |
-          if [[ $CLOSE_PREVIOUS == true ]]; then
-            previous_issue_number=$(gh issue list \
-              --label "$LABELS" \
-              --json number \
-              --jq '.[0].number')
-            if [[ -n $previous_issue_number ]]; then
-              gh issue close "$previous_issue_number"
-              gh issue unpic "$previous_issue_number"
-            fi
-          fi
-          new_issue_url=$(gh issue create \
-            --title "$TITLE" \
+          today=$(TZ='Asia/Tokyo' date +%Y-%m-%d)
+          issue_body=$(bash daily_atcoder_challenge.sh)
+          gh issue create \
+            --title "Daily Atcoder Challenge ($today)" \
             --assignee "$ASSIGNEES" \
             --label "$LABELS" \
-            --body "$BODY")
-          if [[ $PINNED == true ]]; then
-            gh issue pin "$new_issue_url"
-          fi
+            --body "$issue_body"
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GH_REPO: ${{ github.repository }}
-          TITLE: daily programming
           ASSIGNEES: ide-jun
           LABELS: daily programming
-          BODY: |
-            ### Agenda
-            let's solve this problem
-          PINNNED: false
-          CLOSE_PREVIOUS: false
