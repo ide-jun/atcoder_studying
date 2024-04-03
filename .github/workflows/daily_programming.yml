@@ -13,7 +13,7 @@ jobs:
       - name: Fetch a Problem
         run: |
           today=$(TZ='Asia/Tokyo' date +%Y-%m-%d)
-          issue_body=$(bash daily_atcoder_challenge.sh)
+          issue_body=$(bash ./daily_atcoder_challenge.sh)
           gh issue create \
             --title "Daily Atcoder Challenge ($today)" \
             --assignee "$ASSIGNEES" \
