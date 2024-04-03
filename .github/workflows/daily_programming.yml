@@ -1,7 +1,7 @@
 name: Daily Programming
 on:
   schedule:
-    - cron: 35 3 * * *
+    - cron: 50 3 * * *
 
 jobs:
   create_issue:
