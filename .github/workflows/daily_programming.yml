@@ -1,7 +1,7 @@
 name: Daily Programming
 on:
   schedule:
-    - cron: 35 8 * * 1
+    - cron: * * * * *
 
 jobs:
   create_issue:
@@ -13,12 +13,18 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Fetch a Problem
+      - name: Setup Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+      
+      - name: Install Python dependencies
+        run: pip install requests
+
+      - name: Run script and create GitHub Issue
         run: |
           today=$(TZ='Asia/Tokyo' date +%Y-%m-%d)
-          echo $(pwd)
-          ls
-          issue_body=$(bash ./daily_atcoder_challenge.sh)
+          issue_body=$(python ./daily_atcoder_challenge.py)
           gh issue create \
             --title "Daily Atcoder Challenge ($today)" \
             --assignee "$ASSIGNEES" \
