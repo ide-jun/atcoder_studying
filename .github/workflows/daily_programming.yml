@@ -30,6 +30,8 @@ jobs:
             --assignee "$ASSIGNEES" \
             --label "$LABELS" \
             --body "$issue_body"
+          git switch -c feat/$today
+          git push -u origin feat/$today
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GH_REPO: ${{ github.repository }}
