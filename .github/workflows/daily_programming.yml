@@ -1,7 +1,7 @@
 name: Daily Programming
 on:
   schedule:
-    - cron: 20 8 * * *
+    - cron: 00 9 * * *
 
 jobs:
   create_issue:
@@ -9,7 +9,15 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       actions: write
+      checks: write
+      contents: write
+      deployments: write
       issues: write
+      packages: write
+      pull-requests: write
+      repository-projects: write
+      security-events: write
+      statuses: write
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
