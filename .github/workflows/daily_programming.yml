@@ -1,13 +1,14 @@
 name: Daily Programming
 on:
   schedule:
-    - cron: 00 8 * * *
+    - cron: 20 8 * * *
 
 jobs:
   create_issue:
     name: Create Programming Issue
     runs-on: ubuntu-latest
     permissions:
+      actions: write
       issues: write
     steps:
       - name: Checkout repository
