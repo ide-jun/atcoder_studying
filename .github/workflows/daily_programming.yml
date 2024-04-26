@@ -1,7 +1,7 @@
 name: Daily Programming
 on:
   schedule:
-    - cron: 00 9 * * *
+    - cron: 00 4 * * *
 
 jobs:
   create_issue:
@@ -40,6 +40,9 @@ jobs:
             --label "$LABELS" \
             --body "$issue_body"
           git switch -c feat/$today
+          mkdir daily-programming/$today
+          git add .
+          git commit -m "create $today directory"
           git push -u origin feat/$today
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
