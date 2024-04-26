@@ -41,6 +41,7 @@ jobs:
             --body "$issue_body"
           git switch -c feat/$today
           mkdir daily-programming/$today
+          touch daily-programming/$today/.gitkeep
           git add .
           git commit -m "create $today directory"
           git push -u origin feat/$today
