@@ -1,7 +1,7 @@
 name: Daily Programming
 on:
   schedule:
-    - cron: 00 4 * * *
+    - cron: 20 4 * * *
 
 jobs:
   create_issue:
@@ -32,6 +32,8 @@ jobs:
 
       - name: Run script and create GitHub Issue
         run: |
+          git config --global user.email "IDEdevelop16@gmail.com"
+          git config --global user.name "ide-jun"
           today=$(TZ='Asia/Tokyo' date +%Y-%m-%d)
           issue_body=$(python ./daily_atcoder_challenge.py)
           gh issue create \
